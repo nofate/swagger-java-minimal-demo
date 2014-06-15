@@ -41,5 +41,54 @@
             <artifactId>jackson-jaxrs</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.wordnik</groupId>
+            <artifactId>swagger-jaxrs_2.10</artifactId>
+            <version>1.3.2</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <locations>name.nofate.swagger.demo.service.RandomService</locations>
+                            <apiVersion>v1</apiVersion>
+                            <basePath>http://www.example.com</basePath>
+                            <outputTemplate>
+                                https://raw.github.com/kongchen/api-doc-template/master/v2.0/markdown.mustache
+                            </outputTemplate>
+                            <outputPath>${project.build.directory}/apidocs/strapdown.html</outputPath>
+                            <!--swaggerUIDocBasePath>http://127.0.0.1:9000</swaggerUIDocBasePath-->
+                            <swaggerDirectory>${project.build.directory}/apidocs</swaggerDirectory>
+                            <useOutputFlatStructure>true</useOutputFlatStructure>
+                            <!--mustacheFileRoot>${basedir}/src/main/resources/</mustacheFileRoot-->
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
