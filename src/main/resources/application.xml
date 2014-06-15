@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jetty="http://cxf.apache.org/transports/http-jetty/configuration" xmlns:httpj="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration
+       http://cxf.apache.org/schemas/configuration/http-jetty.xsd http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs-common.xsd">
+
+    <bean class="org.apache.cxf.jaxrs.JAXRSServerFactoryBean" init-method="create">
+        <property name="address" value="http://0.0.0.0:9000/"/>
+        <property name="providers">
+            <list>
+                <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+            </list>
+        </property>
+        <property name="serviceBeans">
+            <list>
+                <bean class="name.nofate.swagger.demo.service.RandomService"/>
+            </list>
+        </property>
+    </bean>
+</beans>
